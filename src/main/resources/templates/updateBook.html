@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Könyv módosítása</title>
+    <style>
+        body {
+            background-color: antiquewhite;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-size: 25px;
+        }
+
+        a:hover {
+            background-color: darkgreen;
+            cursor: pointer;
+        }
+
+        a {
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            background-color: black;
+            margin: 5px;
+            padding: 10px;
+        }
+
+        form input[type=text] {
+            margin: 10px;
+        }
+
+        form button {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container" align="center">
+        <h1>Könyv adatainak módosítása</h1>
+        <hr width="90%">
+        <form action="#" method="POST" th:action="@{/updateBook}" th:object="${book}">
+            <input type="hidden" th:field="*{id}">
+            <input type="text" placeholder="Könyv címe" th:field="*{title}"><br>
+            <input type="text" placeholder="Könyv írója" th:field="*{author}"><br>
+            <input type="text" placeholder="Könyv műfaja" th:field="*{genre}"><br>
+            <input type="text" placeholder="Könyv oldalainak száma" th:field="*{numberOfPages}"><br>
+            <button type="submit">Könyv módosítása</button><br>
+        </form>
+        <a th:href="@{/index}">Vissza a könyvlistához</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Könyvkezelő rendszer - főoldal</title>
+    <style>
+
+        body {
+            font-size: 18px;
+            background-color: antiquewhite;
+        }
+
+        #bookTable {
+            border-collapse: collapse;
+        }
+
+        #bookTable td, #bookTable th {
+            vertical-align: middle;
+            text-align: center;
+            padding: 5px;
+            border: 1px solid #000;
+        }
+
+        h1 {
+            font-size: 25px;
+        }
+
+        #newBookButton {
+            font-weight: bold;
+            padding: 5px;
+        }
+
+        a {
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            background-color: black;
+            margin: 5px;
+            padding: 10px;
+        }
+
+        a:hover {
+            background-color: darkgreen;
+            cursor: pointer;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="container" align="center">
+        <h1 sec:authorize="isAuthenticated()">
+            <div>Sikeresen bejelentkeztél!</div>
+            <div>Üdvözlünk, <span sec:authentication="name">!</span></div>
+        </h1>
+        <a th:href="@{/showNewBookForm}">Új könyv hozzáadása</a>
+        <a th:href="@{/register}">Regisztráció</a>
+        <a th:href="@{/logout}">Kijelentkezés</a>
+        <a th:href="@{/login}">Bejelentkezés</a>
+        <h1>A rendszerben tárolt könyvek listája</h1>
+        <table id="bookTable">
+            <thead>
+                <tr>
+                    <th>Cím</th>
+                    <th>Író</th>
+                    <th>Műfaj</th>
+                    <th>Oldalszám</th>
+                    <th>Műveletek</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="book : ${bookList}">
+                    <td th:text="${book.title}"></td>
+                    <td th:text="${book.author}"></td>
+                    <td th:text="${book.genre}"></td>
+                    <td th:text="${book.numberOfPages}"></td>
+                    <td>
+                        <a th:href="@{/showUpdateFormForBook/{bookId}(bookId=${book.id})}">Frissít</a>
+                        <a th:href="@{/deleteBook/{bookId}(bookId=${book.id})}">Töröl</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
